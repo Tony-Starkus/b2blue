@@ -73,9 +73,10 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
 
 interface ComponentProps {
   warehouseActionsLogs: Array<WarehouseActionLog>;
+  handleOnConfirmGathering: () => void;
 }
 
-const WarehouseActionsLogsTable: React.FC<ComponentProps> = ({ warehouseActionsLogs }) => {
+const WarehouseActionsLogsTable: React.FC<ComponentProps> = ({ warehouseActionsLogs, handleOnConfirmGathering }) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -107,7 +108,7 @@ const WarehouseActionsLogsTable: React.FC<ComponentProps> = ({ warehouseActionsL
                 <Typography>{formatISOStringDate(row.createdAt)}</Typography>
                 <Typography>{row.message}</Typography>
                 {row.status === 'pending' ? (
-                  <Button variant="contained" color="success">
+                  <Button variant="contained" color="success" onClick={handleOnConfirmGathering}>
                     Confirmar coleta
                   </Button>
                 ) : (

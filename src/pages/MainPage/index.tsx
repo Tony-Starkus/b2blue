@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Grid from '@mui/material/Unstable_Grid2';
 import { LinearProgress, Stack, Typography } from '@mui/material';
 import WarehouseCardItem from '../../components/WarehouseCardItem';
 import { WarehouseData } from '../../types';
 import { fakeApi } from '../../services/api';
+import { useDashboard } from '../../contexts/DashboardContext';
 
 const mockData: WarehouseData[] = [
   {
@@ -51,22 +52,20 @@ const mockData: WarehouseData[] = [
 ];
 
 const MainPage: React.FC = () => {
-  const [warehouseData, setWarehouseData] = useState<{
-    status: 'idle' | 'pending' | 'completed';
-    data: Array<WarehouseData>;
-  }>({
-    status: 'idle',
-    data: [],
-  });
+  const { warehouseData, updateWarehouseDataState } = useDashboard();
 
   useEffect(() => {
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  /**
+   * This function fetch warehouses data
+   */
   const fetchData = async () => {
-    setWarehouseData({ status: 'pending', data: [] });
+    updateWarehouseDataState({ status: 'pending', data: [] });
     await fakeApi();
-    setWarehouseData({ status: 'completed', data: mockData });
+    updateWarehouseDataState({ status: 'completed', data: mockData });
   };
 
   return (
