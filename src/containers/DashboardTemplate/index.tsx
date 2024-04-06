@@ -1,25 +1,36 @@
 import * as React from 'react';
 import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
-import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import CssBaseline from '@mui/material/CssBaseline';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+import {
+  Menu,
+  MenuItem,
+  Tooltip,
+  Box,
+  List,
+  Divider,
+  Toolbar,
+  ListItem,
+  ListItemText,
+  ListItemButton,
+  Typography,
+  CssBaseline,
+  ListItemIcon,
+  IconButton,
+  Stack,
+  Badge,
+} from '@mui/material';
+import { AccountCircle } from '@mui/icons-material';
 
 const drawerWidth = 240;
+
+const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
@@ -92,6 +103,16 @@ const DashboardTemplate: React.FC<React.PropsWithChildren> = ({ children }) => {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
+  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+
+  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -117,9 +138,48 @@ const DashboardTemplate: React.FC<React.PropsWithChildren> = ({ children }) => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            B2Blue
-          </Typography>
+          <Box sx={{ width: 100 }}>
+            <img
+              style={{ width: '100%' }}
+              src="https://cdn.b2blue.com/p/static/img/B2Blue_Logo_borda_branca.png"
+              alt="B2Blue"
+            />
+          </Box>
+
+          <Stack sx={{ flexGrow: 1 }} flexDirection="row" alignItems="center" justifyContent="flex-end" gap={1}>
+            <IconButton size="large" aria-label="show 17 new notifications" color="inherit">
+              <Badge badgeContent={17} color="error">
+                <NotificationsIcon />
+              </Badge>
+            </IconButton>
+            <Tooltip title="Open settings">
+              <IconButton color="inherit" onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <AccountCircle sx={{ width: '2rem', height: '2rem' }} />
+              </IconButton>
+            </Tooltip>
+            <Menu
+              sx={{ mt: '45px' }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              {settings.map((setting) => (
+                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">{setting}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
+          </Stack>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
