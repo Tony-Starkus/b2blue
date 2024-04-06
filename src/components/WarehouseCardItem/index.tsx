@@ -1,11 +1,11 @@
 import React, { SyntheticEvent, useEffect, useState } from 'react';
 import WarehouseIcon from '@mui/icons-material/Warehouse';
 import { Card, CardContent, Divider, Slider, Stack, Typography } from '@mui/material';
-import { WarehouseData } from '../../types';
 import WarehouseActionsLogsTable from '../WarehouseActionsLogsTable';
 import { useDashboard } from '../../contexts/DashboardContext';
 import { fakeApi } from '../../services/api';
 import { dispatchToast } from '../../utils/toast';
+import { WarehouseData } from '../../types';
 
 interface ComponentProps {
   warehouseData: WarehouseData;
@@ -24,6 +24,9 @@ const WarehouseCardItem: React.FC<ComponentProps> = ({ warehouseData }) => {
     setWarehouseCapacity(newValue as number);
   };
 
+  /**
+   * This function handle the logic to update warehouse capacity
+   */
   const fetchUpdateWarehouseCapacity = (_: Event | SyntheticEvent<Element, Event>, value: number | number[]) => {
     const newValue = value as number;
     if (newValue >= 80) {
@@ -47,6 +50,9 @@ const WarehouseCardItem: React.FC<ComponentProps> = ({ warehouseData }) => {
     }
   };
 
+  /**
+   * This function handle logic to confirm gathering
+   */
   const handleOnConfirmGathering = async () => {
     await fakeApi();
     setWarehouseCapacity(0);

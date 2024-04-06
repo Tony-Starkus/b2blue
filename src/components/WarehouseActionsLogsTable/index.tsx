@@ -30,6 +30,14 @@ interface TablePaginationActionsProps {
   onPageChange: (event: React.MouseEvent<HTMLButtonElement>, newPage: number) => void;
 }
 
+interface ComponentProps {
+  warehouseActionsLogs: Array<WarehouseActionLog>;
+  handleOnConfirmGathering: () => void;
+}
+
+/**
+ * Component to handle table pagination
+ */
 function TablePaginationActions(props: TablePaginationActionsProps) {
   const theme = useTheme();
   const { count, page, rowsPerPage, onPageChange } = props;
@@ -76,11 +84,6 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
   );
 }
 
-interface ComponentProps {
-  warehouseActionsLogs: Array<WarehouseActionLog>;
-  handleOnConfirmGathering: () => void;
-}
-
 const WarehouseActionsLogsTable: React.FC<ComponentProps> = ({ warehouseActionsLogs, handleOnConfirmGathering }) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -104,10 +107,7 @@ const WarehouseActionsLogsTable: React.FC<ComponentProps> = ({ warehouseActionsL
 
   return (
     <TableContainer component={Paper}>
-      <Table
-        // sx={{ minWidth: 500 }}
-        aria-label="custom pagination table"
-      >
+      <Table aria-label="custom pagination table">
         <TableBody>
           {(rowsPerPage > 0
             ? warehouseActionsLogs.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)

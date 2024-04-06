@@ -24,6 +24,9 @@ const DashboardContextProvider: React.FC<PropsWithChildren> = ({ children }) => 
     setWarehouseData(newValue);
   };
 
+  /**
+   * This function updates one item on warehouse state
+   */
   const updateWarehouseDataItem = (newItemValue: WarehouseData) => {
     const index = warehouseData.data.findIndex((item) => item.id === newItemValue.id);
 
