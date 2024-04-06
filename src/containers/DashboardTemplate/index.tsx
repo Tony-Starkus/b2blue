@@ -118,7 +118,7 @@ const DashboardTemplate: React.FC<React.PropsWithChildren> = ({ children }) => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Mini variant drawer
+            B2Blue
           </Typography>
         </Toolbar>
       </AppBar>

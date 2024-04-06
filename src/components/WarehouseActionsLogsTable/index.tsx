@@ -92,6 +92,10 @@ const WarehouseActionsLogsTable: React.FC<ComponentProps> = ({ warehouseActionsL
     setPage(0);
   };
 
+  if (warehouseActionsLogs.length === 0) {
+    return <Typography>Sem registros</Typography>;
+  }
+
   return (
     <TableContainer component={Paper}>
       <Table

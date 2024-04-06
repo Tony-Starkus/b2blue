@@ -10,6 +10,7 @@ const mockData: WarehouseData[] = [
   {
     id: 0,
     name: 'Estação 1',
+    currentCapacity: 85,
     actionsLog: [
       {
         id: 0,
@@ -28,11 +29,12 @@ const mockData: WarehouseData[] = [
   {
     id: 1,
     name: 'Estação 2',
+    currentCapacity: 0,
     actionsLog: [
       {
         id: 0,
         message: 'A estação atingiu o limite mínimo de 80% para coleta. Um pedido de coleta foi gerado.',
-        status: 'pending',
+        status: 'done',
         createdAt: '2024-04-05T22:33:55.836Z',
       },
     ],
@@ -40,14 +42,8 @@ const mockData: WarehouseData[] = [
   {
     id: 3,
     name: 'Estação 3',
-    actionsLog: [
-      {
-        id: 0,
-        message: 'A estação atingiu o limite mínimo de 80% para coleta. Um pedido de coleta foi gerado.',
-        status: 'pending',
-        createdAt: '2024-04-05T22:33:55.836Z',
-      },
-    ],
+    currentCapacity: 0,
+    actionsLog: [],
   },
 ];
 
