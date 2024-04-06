@@ -19,6 +19,25 @@ const WarehouseCardItem: React.FC<ComponentProps> = ({ warehouseData }) => {
 
   const fetchUpdateWarehouseCapacity = (_: Event | SyntheticEvent<Element, Event>, value: number | number[]) => {
     console.log(value);
+    const newValue = value as number;
+    if (newValue >= 80) {
+      const hasPendingGathering = warehouseData.actionsLog.some((log) => log.status === 'pending');
+
+      if (!hasPendingGathering) {
+        updateWarehouseDataItem({
+          ...warehouseData,
+          actionsLog: [
+            {
+              id: warehouseData.actionsLog.length,
+              message: 'A estação atingiu o limite mínimo de 80% para coleta. Um pedido de coleta foi gerado.',
+              status: 'pending',
+              createdAt: new Date().toISOString(),
+            },
+            ...warehouseData.actionsLog,
+          ],
+        });
+      }
+    }
   };
 
   return (
