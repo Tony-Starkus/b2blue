@@ -4,6 +4,8 @@ import { Card, CardContent, Divider, Slider, Stack, Typography } from '@mui/mate
 import { WarehouseData } from '../../types';
 import WarehouseActionsLogsTable from '../WarehouseActionsLogsTable';
 import { useDashboard } from '../../contexts/DashboardContext';
+import { fakeApi } from '../../services/api';
+import { dispatchToast } from '../../utils/toast';
 
 interface ComponentProps {
   warehouseData: WarehouseData;
@@ -28,6 +30,7 @@ const WarehouseCardItem: React.FC<ComponentProps> = ({ warehouseData }) => {
       const hasPendingGathering = warehouseData.actionsLog.some((log) => log.status === 'pending');
 
       if (!hasPendingGathering) {
+        dispatchToast(`Pedido de coleta gerado para ${warehouseData.name}`, { type: 'info' });
         updateWarehouseDataItem({
           ...warehouseData,
           actionsLog: [
@@ -44,8 +47,11 @@ const WarehouseCardItem: React.FC<ComponentProps> = ({ warehouseData }) => {
     }
   };
 
-  const handleOnConfirmGathering = () => {
+  const handleOnConfirmGathering = async () => {
+    await fakeApi();
     setWarehouseCapacity(0);
+    dispatchToast('Coleta confirmada!', { type: 'success' });
+
     updateWarehouseDataItem({
       ...warehouseData,
       currentCapacity: 0,

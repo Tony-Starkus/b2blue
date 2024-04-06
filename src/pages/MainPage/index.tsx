@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Grid from '@mui/material/Unstable_Grid2';
-import { LinearProgress, Stack, Typography } from '@mui/material';
+import { Button, LinearProgress, Stack, Typography } from '@mui/material';
 import WarehouseCardItem from '../../components/WarehouseCardItem';
 import { WarehouseData } from '../../types';
 import { fakeApi } from '../../services/api';
@@ -60,8 +60,12 @@ const MainPage: React.FC = () => {
    */
   const fetchData = async () => {
     updateWarehouseDataState({ status: 'pending', data: [] });
-    await fakeApi();
-    updateWarehouseDataState({ status: 'completed', data: mockData });
+    try {
+      await fakeApi();
+      updateWarehouseDataState({ status: 'completed', data: mockData });
+    } catch {
+      updateWarehouseDataState({ status: 'error', data: [] });
+    }
   };
 
   return (
@@ -75,6 +79,15 @@ const MainPage: React.FC = () => {
       {warehouseData.status === 'pending' && (
         <Stack sx={{ width: '100%', color: 'grey.500' }} spacing={2}>
           <LinearProgress color="primary" />
+        </Stack>
+      )}
+
+      {warehouseData.status === 'error' && (
+        <Stack sx={{ width: '100%', height: '20vh', justifyContent: 'center' }} spacing={2}>
+          <Typography variant="h5">Erro ao processar os dados.</Typography>
+          <Button variant="contained" style={{ alignSelf: 'center' }} onClick={fetchData}>
+            Tentar Novamente
+          </Button>
         </Stack>
       )}
 

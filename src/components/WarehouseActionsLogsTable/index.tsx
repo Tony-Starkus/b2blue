@@ -1,22 +1,27 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableFooter from '@mui/material/TableFooter';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import IconButton from '@mui/material/IconButton';
 import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
 import { WarehouseActionLog } from '../../types';
 import { formatISOStringDate } from '../../utils/date';
-import { Button, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  CircularProgress,
+  IconButton,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableFooter,
+  TablePagination,
+  TableRow,
+  Typography,
+} from '@mui/material';
+import { dispatchToast } from '../../utils/toast';
 
 interface TablePaginationActionsProps {
   count: number;
@@ -79,6 +84,7 @@ interface ComponentProps {
 const WarehouseActionsLogsTable: React.FC<ComponentProps> = ({ warehouseActionsLogs, handleOnConfirmGathering }) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [loadingButton, setLoadingButton] = useState(false);
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - warehouseActionsLogs.length) : 0;
@@ -112,8 +118,22 @@ const WarehouseActionsLogsTable: React.FC<ComponentProps> = ({ warehouseActionsL
                 <Typography>{formatISOStringDate(row.createdAt)}</Typography>
                 <Typography>{row.message}</Typography>
                 {row.status === 'pending' ? (
-                  <Button variant="contained" color="success" onClick={handleOnConfirmGathering}>
-                    Confirmar coleta
+                  <Button
+                    variant="contained"
+                    color="success"
+                    disabled={loadingButton}
+                    onClick={async () => {
+                      setLoadingButton(true);
+                      try {
+                        await handleOnConfirmGathering();
+                      } catch {
+                        dispatchToast('Erro ao confirmar a coleta. Tente novamente.', { type: 'error' });
+                      } finally {
+                        setLoadingButton(false);
+                      }
+                    }}
+                  >
+                    {loadingButton ? <CircularProgress size={24} color="inherit" /> : 'Confirmar coleta'}
                   </Button>
                 ) : (
                   <Typography textTransform="uppercase" color="green" fontWeight="bold">
