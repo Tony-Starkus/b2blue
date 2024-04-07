@@ -27,6 +27,11 @@ import {
   Badge,
 } from '@mui/material';
 import { AccountCircle } from '@mui/icons-material';
+import { AdminMuiContainer } from './styled';
+
+interface AppBarProps extends MuiAppBarProps {
+  open?: boolean;
+}
 
 const drawerWidth = 240;
 
@@ -47,7 +52,7 @@ const closedMixin = (theme: Theme): CSSObject => ({
     duration: theme.transitions.duration.leavingScreen,
   }),
   overflowX: 'hidden',
-  width: `calc(${theme.spacing(7)} + 1px)`,
+  width: `0px`,
   [theme.breakpoints.up('sm')]: {
     width: `calc(${theme.spacing(8)} + 1px)`,
   },
@@ -61,10 +66,6 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
 }));
-
-interface AppBarProps extends MuiAppBarProps {
-  open?: boolean;
-}
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -89,8 +90,14 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   flexShrink: 0,
   whiteSpace: 'nowrap',
   boxSizing: 'border-box',
+  '& .MuiListItem-root a': {
+    width: '100%',
+  },
   ...(open && {
     ...openedMixin(theme),
+    [theme.breakpoints.down('md')]: {
+      width: 0,
+    },
     '& .MuiDrawer-paper': openedMixin(theme),
   }),
   ...(!open && {
@@ -98,7 +105,6 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     '& .MuiDrawer-paper': closedMixin(theme),
   }),
 }));
-
 const DashboardTemplate: React.FC<React.PropsWithChildren> = ({ children }) => {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -122,7 +128,7 @@ const DashboardTemplate: React.FC<React.PropsWithChildren> = ({ children }) => {
   };
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <AdminMuiContainer sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar>
@@ -243,7 +249,7 @@ const DashboardTemplate: React.FC<React.PropsWithChildren> = ({ children }) => {
         <DrawerHeader />
         {children}
       </Box>
-    </Box>
+    </AdminMuiContainer>
   );
 };
 
