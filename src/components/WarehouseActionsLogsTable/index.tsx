@@ -160,11 +160,13 @@ const WarehouseActionsLogsTable: React.FC<ComponentProps> = ({ warehouseActionsL
               slotProps={{
                 select: {
                   inputProps: {
-                    'aria-label': 'rows per page',
+                    'aria-label': 'Linhas por página',
                   },
                   native: true,
                 },
               }}
+              labelDisplayedRows={({ from, to, count }) => `${from}–${to} de ${count !== -1 ? count : `mais de ${to}`}`}
+              labelRowsPerPage="Linhas por página"
               onPageChange={handleChangePage}
               onRowsPerPageChange={handleChangeRowsPerPage}
               ActionsComponent={TablePaginationActions}

@@ -27,7 +27,7 @@ import {
 import { AccountCircle } from '@mui/icons-material';
 import { AdminMuiContainer, AppBar, Drawer, DrawerHeader } from './styled';
 
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['Perfil', 'Conta', 'Dashboard', 'Sair'];
 
 const DashboardTemplate: React.FC<React.PropsWithChildren> = ({ children }) => {
   const theme = useTheme();
@@ -82,7 +82,7 @@ const DashboardTemplate: React.FC<React.PropsWithChildren> = ({ children }) => {
                 <NotificationsIcon />
               </Badge>
             </IconButton>
-            <Tooltip title="Open settings">
+            <Tooltip title="Abrir menu">
               <IconButton color="inherit" onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <AccountCircle sx={{ width: '2rem', height: '2rem' }} />
               </IconButton>
@@ -120,7 +120,7 @@ const DashboardTemplate: React.FC<React.PropsWithChildren> = ({ children }) => {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+          {['Início', 'Relatórios', 'Políticas comerciais', 'Integrações'].map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>
               <ListItemButton
                 sx={{
@@ -145,7 +145,7 @@ const DashboardTemplate: React.FC<React.PropsWithChildren> = ({ children }) => {
         </List>
         <Divider />
         <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
+          {['Pedidos', 'Estoque e entrega', 'Pagamentos'].map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>
               <ListItemButton
                 sx={{
