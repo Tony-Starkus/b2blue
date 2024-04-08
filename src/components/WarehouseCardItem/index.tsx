@@ -55,23 +55,26 @@ const WarehouseCardItem: React.FC<ComponentProps> = ({ warehouseData }) => {
       reverseButtons: true,
     }).then(async (result) => {
       if (result.isConfirmed) {
-        setPreviousWarehouseCapacity(newValue);
+        const newLogs = [
+          {
+            id: warehouseData.actionsLog.length,
+            message: `O usuário João atualizou o volume de ocupação de ${previousWarehouseCapacity}% para ${newValue}%`,
+            createdAt: new Date().toISOString(),
+          },
+        ];
         if (newValue >= CONSTANTS.WAREHOUSE_MINIMUM_CAPACITY_TO_COLLECT) {
-          // const hasPendingGathering = warehouseData.actionsLog.some((log) => log.status === 'pending');
-
           dispatchToast(`Pedido de coleta gerado para ${warehouseData.name}`, { type: 'info' });
-          updateWarehouseDataItem({
-            ...warehouseData,
-            actionsLog: [
-              {
-                id: warehouseData.actionsLog.length,
-                message: `A estação atingiu o limite mínimo de ${CONSTANTS.WAREHOUSE_MINIMUM_CAPACITY_TO_COLLECT}% para coleta. Um pedido de coleta foi gerado automaticamente.`,
-                createdAt: new Date().toISOString(),
-              },
-              ...warehouseData.actionsLog,
-            ],
+          newLogs.unshift({
+            id: warehouseData.actionsLog.length + 1,
+            message: `A estação atingiu o limite mínimo de ${CONSTANTS.WAREHOUSE_MINIMUM_CAPACITY_TO_COLLECT}% para coleta. Um pedido de coleta foi gerado automaticamente.`,
+            createdAt: new Date().toISOString(),
           });
         }
+        updateWarehouseDataItem({
+          ...warehouseData,
+          actionsLog: [...newLogs, ...warehouseData.actionsLog],
+        });
+        setPreviousWarehouseCapacity(newValue);
       } else {
         setWarehouseCapacity(previousWarehouseCapacity);
       }
