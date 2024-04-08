@@ -20,8 +20,7 @@ const mockData: WarehouseData[] = [
       },
       {
         id: 1,
-        message:
-          'A estação atingiu o limite mínimo de 80% para coleta. Um pedido de coleta foi gerado automaticamente.',
+        message: `O usuário João atualizou o volume de ocupação de 0% para 85%`,
         createdAt: '2024-04-05T22:33:55.836Z',
       },
     ],
@@ -29,13 +28,12 @@ const mockData: WarehouseData[] = [
   {
     id: 1,
     name: 'Estação 2',
-    currentCapacity: 0,
+    currentCapacity: 20,
     actionsLog: [
       {
         id: 0,
-        message:
-          'A estação atingiu o limite mínimo de 80% para coleta. Um pedido de coleta foi gerado automaticamente.',
-        createdAt: '2024-04-05T22:33:55.836Z',
+        message: `O usuário João atualizou o volume de ocupação de 0% para 20%`,
+        createdAt: new Date().toISOString(),
       },
     ],
   },
