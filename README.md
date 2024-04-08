@@ -1,30 +1,47 @@
-# React + TypeScript + Vite
+# B2Blue - Desafio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este projeto foi construído baseado no desafio proposto.
 
-Currently, two official plugins are available:
+## Objetivo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Imagine três estações de armazenamento de resíduos. Seu desafio é criar um painel
+intuitivo que permita aos usuários informar a % de volume de ocupação em cada estação.
+Quando uma estação atingir 80% de ocupação, queremos que o sistema gere automaticamente
+um pedido de coleta!
+E aqui vem a parte interativa e inovadora: após o pedido de coleta, o usuário terá a opção
+de confirmar a coleta da estação. Após a confirmação, a estação deve ser reiniciada para 0% de
+preenchimento. Todas essas operações devem ser meticulosamente registradas em um banco
+de dados para análise futura.
 
-## Expanding the ESLint configuration
+## Requisítos
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- O painel deve contar com, no mínimo, três estações de armazenamento de resíduos;
+- O usuário deve informar quantos % de volume com o qual cada estação está preenchida;
+- Quando a estação estiver com 80% de ocupação, gerar um pedido de coleta automaticamente;
+- Após o pedido de coleta o usuário poderá confirmar a realização da coleta da estação;
+- Após a confirmação da coleta, a estação deve voltar seu volume ocupado para 0%;
 
-- Configure the top-level `parserOptions` property like this:
+## Tecnologias
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+Este projeto foi construído usando React com Vite e TypeScript, utilizando as seguintes bibliotecas:
+
+| Command        | Description                                                                 |
+| -------------- | --------------------------------------------------------------------------- |
+| MUI            | Biblioteca de componentes UI para desenvolvimento rápido de funcionalidades |
+| react-toastify | Biblioteca para notificações em forma de toast                              |
+| sweetalert2    | Biblioteca de alertas estilizados, responsívos e customizáveis              |
+
+## Instalação
+
+1. Clone este repositório
+2. Instale as dependências
+
+```shell
+npm install
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+3. Rode o projeto
+
+```shell
+npm run dev
+```
