@@ -6,6 +6,7 @@ import { useDashboard } from '../../contexts/DashboardContext';
 import { fakeApi } from '../../services/api';
 import { dispatchToast } from '../../utils/toast';
 import { WarehouseData } from '../../types';
+import Swal from 'sweetalert2';
 
 interface ComponentProps {
   warehouseData: WarehouseData;
@@ -15,8 +16,12 @@ const WarehouseCardItem: React.FC<ComponentProps> = ({ warehouseData }) => {
   const { updateWarehouseDataItem } = useDashboard();
   const [warehouseCapacity, setWarehouseCapacity] = useState(0);
 
+  // This state is used to save previous value to rollback if user cancel the update on confirm modal
+  const [previousWarehouseCapacity, setPreviousWarehouseCapacity] = useState(0);
+
   useEffect(() => {
     setWarehouseCapacity(warehouseData.currentCapacity);
+    setPreviousWarehouseCapacity(warehouseData.currentCapacity);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -29,25 +34,38 @@ const WarehouseCardItem: React.FC<ComponentProps> = ({ warehouseData }) => {
    */
   const fetchUpdateWarehouseCapacity = (_: Event | SyntheticEvent<Element, Event>, value: number | number[]) => {
     const newValue = value as number;
-    if (newValue >= 80) {
-      const hasPendingGathering = warehouseData.actionsLog.some((log) => log.status === 'pending');
+    Swal.fire({
+      title: `Atualizar valor para: ${newValue}%`,
+      showCancelButton: true,
+      confirmButtonColor: '#2e7d32',
+      cancelButtonColor: '#d32f2f',
+      reverseButtons: true,
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        setPreviousWarehouseCapacity(newValue);
+        if (newValue >= 80) {
+          const hasPendingGathering = warehouseData.actionsLog.some((log) => log.status === 'pending');
 
-      if (!hasPendingGathering) {
-        dispatchToast(`Pedido de coleta gerado para ${warehouseData.name}`, { type: 'info' });
-        updateWarehouseDataItem({
-          ...warehouseData,
-          actionsLog: [
-            {
-              id: warehouseData.actionsLog.length,
-              message: 'A estação atingiu o limite mínimo de 80% para coleta. Um pedido de coleta foi gerado.',
-              status: 'pending',
-              createdAt: new Date().toISOString(),
-            },
-            ...warehouseData.actionsLog,
-          ],
-        });
+          if (!hasPendingGathering) {
+            dispatchToast(`Pedido de coleta gerado para ${warehouseData.name}`, { type: 'info' });
+            updateWarehouseDataItem({
+              ...warehouseData,
+              actionsLog: [
+                {
+                  id: warehouseData.actionsLog.length,
+                  message: 'A estação atingiu o limite mínimo de 80% para coleta. Um pedido de coleta foi gerado.',
+                  status: 'pending',
+                  createdAt: new Date().toISOString(),
+                },
+                ...warehouseData.actionsLog,
+              ],
+            });
+          }
+        }
+      } else {
+        setWarehouseCapacity(previousWarehouseCapacity);
       }
-    }
+    });
   };
 
   /**
@@ -56,6 +74,7 @@ const WarehouseCardItem: React.FC<ComponentProps> = ({ warehouseData }) => {
   const handleOnConfirmGathering = async () => {
     await fakeApi();
     setWarehouseCapacity(0);
+    setPreviousWarehouseCapacity(0);
     dispatchToast('Coleta confirmada!', { type: 'success' });
 
     updateWarehouseDataItem({
