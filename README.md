@@ -48,4 +48,4 @@ npm run dev
 
 ## &#128214; Documentação
 
-[Clique aqui para acessar a documentação]()
+[Clique aqui para acessar a documentação](docs/README.md)
