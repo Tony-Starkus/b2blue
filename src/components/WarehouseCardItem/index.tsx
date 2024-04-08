@@ -48,9 +48,12 @@ const WarehouseCardItem: React.FC<ComponentProps> = ({ warehouseData }) => {
   const fetchUpdateWarehouseCapacity = (_: Event | SyntheticEvent<Element, Event>, value: number | number[]) => {
     const newValue = value as number;
     Swal.fire({
-      title: `Atualizar valor para: ${newValue}%`,
+      title: 'Novo valor de volume de ocupação',
+      text: `Confirmar novo valor: ${newValue}%`,
       showCancelButton: true,
+      confirmButtonText: 'Sim',
       confirmButtonColor: '#2e7d32',
+      cancelButtonText: 'Não',
       cancelButtonColor: '#d32f2f',
       reverseButtons: true,
     }).then(async (result) => {

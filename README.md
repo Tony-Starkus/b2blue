@@ -2,7 +2,7 @@
 
 Este projeto foi construído baseado no desafio proposto.
 
-## Objetivo
+## 🎯 Objetivo
 
 Imagine três estações de armazenamento de resíduos. Seu desafio é criar um painel
 intuitivo que permita aos usuários informar a % de volume de ocupação em cada estação.
@@ -13,7 +13,7 @@ de confirmar a coleta da estação. Após a confirmação, a estação deve ser 
 preenchimento. Todas essas operações devem ser meticulosamente registradas em um banco
 de dados para análise futura.
 
-## Requisítos
+## &#x2705; Requisítos
 
 - O painel deve contar com, no mínimo, três estações de armazenamento de resíduos;
 - O usuário deve informar quantos % de volume com o qual cada estação está preenchida;
@@ -21,17 +21,17 @@ de dados para análise futura.
 - Após o pedido de coleta o usuário poderá confirmar a realização da coleta da estação;
 - Após a confirmação da coleta, a estação deve voltar seu volume ocupado para 0%;
 
-## Tecnologias
+## &#128187; Tecnologias
 
 Este projeto foi construído usando React com Vite e TypeScript, utilizando as seguintes bibliotecas:
 
-| Command        | Description                                                                 |
-| -------------- | --------------------------------------------------------------------------- |
-| MUI            | Biblioteca de componentes UI para desenvolvimento rápido de funcionalidades |
-| react-toastify | Biblioteca para notificações em forma de toast                              |
-| sweetalert2    | Biblioteca de alertas estilizados, responsívos e customizáveis              |
+| Biblioteca                                                     | Descrição                                                                   |
+| -------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| [MUI](https://mui.com/)                                        | Biblioteca de componentes UI para desenvolvimento rápido de funcionalidades |
+| [react-toastify](https://www.npmjs.com/package/react-toastify) | Biblioteca para notificações em forma de toast                              |
+| [sweetalert2](https://sweetalert2.github.io/)                  | Biblioteca de alertas estilizados, responsívos e customizáveis              |
 
-## Instalação
+## ⚡ Instalação
 
 1. Clone este repositório
 2. Instale as dependências
@@ -45,3 +45,7 @@ npm install
 ```shell
 npm run dev
 ```
+
+## &#128214; Documentação
+
+[Clique aqui para acessar a documentação]()
