@@ -2,6 +2,10 @@
 
 Este projeto foi construído baseado no desafio proposto.
 
+```
+Este projeto está online neste link: http://85.31.63.44:3000/
+```
+
 ## 🎯 Objetivo
 
 Imagine três estações de armazenamento de resíduos. Seu desafio é criar um painel
