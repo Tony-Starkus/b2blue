@@ -15,3 +15,11 @@ export const formatISOStringDate = (value: string, options: DateTimeFormatOption
     return 'Invalid Date format.';
   }
 };
+
+export const formatTimeFromISOStringDate = (value: string, options: DateTimeFormatOptions = { format: 'pt-br' }) => {
+  try {
+    return new Intl.DateTimeFormat(options.format, { hour: 'numeric', minute: 'numeric' }).format(new Date(value));
+  } catch {
+    return 'Invalid Date format.';
+  }
+};

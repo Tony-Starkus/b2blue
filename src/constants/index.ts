@@ -1,0 +1,5 @@
+const CONSTANTS = {
+  WAREHOUSE_MINIMUM_CAPACITY_TO_COLLECT: 80,
+};
+
+export default CONSTANTS;

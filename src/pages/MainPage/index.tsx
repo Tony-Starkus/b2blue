@@ -14,14 +14,14 @@ const mockData: WarehouseData[] = [
     actionsLog: [
       {
         id: 0,
-        message: 'A estação atingiu o limite mínimo de 80% para coleta. Um pedido de coleta foi gerado.',
-        status: 'pending',
+        message:
+          'A estação atingiu o limite mínimo de 80% para coleta. Um pedido de coleta foi gerado automaticamente.',
         createdAt: '2024-04-05T22:33:55.836Z',
       },
       {
         id: 1,
-        message: 'A estação atingiu o limite mínimo de 80% para coleta. Um pedido de coleta foi gerado.',
-        status: 'done',
+        message:
+          'A estação atingiu o limite mínimo de 80% para coleta. Um pedido de coleta foi gerado automaticamente.',
         createdAt: '2024-04-05T22:33:55.836Z',
       },
     ],
@@ -33,8 +33,8 @@ const mockData: WarehouseData[] = [
     actionsLog: [
       {
         id: 0,
-        message: 'A estação atingiu o limite mínimo de 80% para coleta. Um pedido de coleta foi gerado.',
-        status: 'done',
+        message:
+          'A estação atingiu o limite mínimo de 80% para coleta. Um pedido de coleta foi gerado automaticamente.',
         createdAt: '2024-04-05T22:33:55.836Z',
       },
     ],

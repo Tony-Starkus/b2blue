@@ -9,5 +9,4 @@ export interface WarehouseActionLog {
   id: number;
   message: string;
   createdAt: string;
-  status: 'pending' | 'done';
 }
